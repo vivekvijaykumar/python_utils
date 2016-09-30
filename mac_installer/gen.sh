@@ -1,3 +1,5 @@
+#Author: Vivek Vijaykumar
+
 #!/bin/bash
 
 profile_generate()
