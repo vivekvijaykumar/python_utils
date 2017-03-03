@@ -1,5 +1,8 @@
 #!/usr/bin/python
-
+'''
+Flatten the file directory and rename the media files with modified date time stamp for
+easy sorting and catalog. Did not like MAC photos app for now.
+'''
 
 import os,time,threading, sys, getopt
 from glob import glob
