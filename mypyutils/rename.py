@@ -49,13 +49,7 @@ def createThread():
     global  filesPerThread, threadCount, filesPerThreadList, threads, dryRun
     start = 0
     myid = 0
-    count = 1
-
-    if dryRun == True:
-        count = 1
-    else:
-        count = threadCount
-
+    count = threadCount
     for i in xrange(count):
         try:
             t = threading.Thread(target=work, args=(myid, filesPerThreadList[i], start, ))
