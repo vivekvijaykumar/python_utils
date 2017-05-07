@@ -525,6 +525,31 @@ void quick_sort(unsigned int array[], int l, int r)
     }
 }
 
+
+int binary_search(unsigned int array[], int s, int e, unsigned int val)
+{
+    if( s <= e) {
+        int m  = (s + e)/2;
+        if(val < array[m])
+            return binary_search(array, s, m, val);
+        else if (val > array[m])
+            return binary_search(array, m+1, e, val);
+        else 
+            return m;
+    } else {
+        return -1;
+    }
+}
+
+void print_array(unsigned int array[], int size)
+{
+    int i=0;
+    while(i<size) {
+         printf("%d ", array[i++]);
+    } 
+    printf("\n");
+}
+
 int main(int argc, char *argv[])
 {
     extern char *optarg;
@@ -618,30 +643,24 @@ int main(int argc, char *argv[])
             i=0;
             if(optarg[0] == 'm') {
                 printf("%20s","Original: ");
-                while(i<sizeof(array)/sizeof(unsigned int)) {
-                    printf("%d ", array[i++]);
-                }
-                printf("\n");
+                print_array(array, sizeof(array)/sizeof(unsigned int));
                 merge_sort(array, 0, sizeof(array)/sizeof(unsigned int)-1);
                 printf("%20s","Merge-Sorted: ");
-                i=0;
-                while(i<sizeof(array)/sizeof(unsigned int)) {
-                    printf("%d ", array[i++]);
-                }
-                printf("\n");
+                print_array(array,sizeof(array)/sizeof(unsigned int));
             } else if (optarg[0] == 'q') {
                 printf("%20s","Original: ");
-                while(i<sizeof(array)/sizeof(unsigned int)) {
-                    printf("%d ", array[i++]);
-                }
-                printf("\n");
+                print_array(array,sizeof(array)/sizeof(unsigned int));
                 quick_sort(array, 0, (sizeof(array)/sizeof(unsigned int)-1));
                 printf("%20s","Quick-Sorted: ");
-                i=0;
-                while(i<sizeof(array)/sizeof(unsigned int)) {
-                    printf("%d ", array[i++]);
-                }
-                printf("\n");
+                print_array(array,sizeof(array)/sizeof(unsigned int));
+            } else if(optarg[0] == 'b') {
+                random = rand() % sizeof(array)/sizeof(unsigned int);
+                merge_sort(array, 0, sizeof(array)/sizeof(unsigned int)-1);
+                print_array(array,sizeof(array)/sizeof(unsigned int));
+                int rc = binary_search(array, 0, 
+                        sizeof(array)/sizeof(unsigned int)-1, array[random]);
+                printf("Item [%d] %s @ %d\n", array[random], 
+                        (rc == -1) ? "not found." : " found", rc);
             }
         break;
         default:
@@ -651,3 +670,4 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
