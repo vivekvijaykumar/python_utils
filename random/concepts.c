@@ -562,7 +562,7 @@ int main(int argc, char *argv[])
     
     srand((unsigned) time(&t));
 
-    while ((opt = getopt(argc, argv, "lsqta:")) != -1) {
+    while ((opt = getopt(argc, argv, "lsqta:p")) != -1) {
         switch (opt) {
         case 'l':
             for (iter=0; iter<10; iter++) {
@@ -663,6 +663,19 @@ int main(int argc, char *argv[])
                         (rc == -1) ? "not found." : " found", rc);
             }
         break;
+
+        case 'p':
+            stack_size = 10;
+            stack = malloc(sizeof(unsigned int) * stack_size);
+#if 0
+            char str[]="(()(";
+            char *ptr = &str[0];
+            for(i=0; i<strlen(str); i++) {
+                stack_push((unsigned int)(*ptr);
+            }
+#endif
+        break;
+
         default:
         exit(0);
         }
