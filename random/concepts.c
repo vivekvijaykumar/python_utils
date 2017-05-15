@@ -240,6 +240,25 @@ void bst_preorder(struct tree *root)
     bst_preorder(root->right);
 }
 
+int kth_smallest;
+void bst_inorder_kth(struct tree *root, int k)
+{
+    if(!root)
+        return;
+
+    bst_inorder_kth(root->left, k);
+    kth_smallest++;
+    //printf("[k:%d c:%d v:%d]\n", k, kth_smallest, root->val);
+    if(kth_smallest == k) {
+        printf("%d ", root->val);
+        return;
+    } else if(kth_smallest>k) {
+        return;
+    }
+    bst_inorder_kth(root->right, k);
+}
+
+
 void bst_inorder(struct tree *root)
 {
     if(!root)
@@ -374,7 +393,7 @@ struct tree *bst_delete(struct tree *node, int val)
 void bst_operations()
 {
     TREE_HEAD = NULL; 
-    tail = -1, head = 0;
+    tail = -1, head = kth_smallest = 0;
     queue_size = sizeof(nodes)/sizeof(int);
     stack_size = sizeof(nodes)/sizeof(int);
     top = 0;
@@ -395,6 +414,9 @@ void bst_operations()
     printf("\n");
     printf("%25s","Inorder[Sorted order]: ");
     bst_inorder(TREE_HEAD);
+    int random = (rand()%10+1);
+    printf("K[%d]th : ", random);
+    bst_inorder_kth(TREE_HEAD, random);
     printf("\n");
     printf("%25s","Postorder: ");
     bst_postorder(TREE_HEAD);
