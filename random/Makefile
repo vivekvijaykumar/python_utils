@@ -8,7 +8,8 @@ MY_CFLAGS := -I. -Wall -g -DNDEBUG
 	$(CC) $(MY_DEPS) $< -o $@
 
 programs := reverse.bin lonely.bin sreducedstr.bin binarystr.bin alternate.bin and.bin loop.bin palindrome.bin example.bin 2str.bin strcontruct.bin \
-	pipe.bin rotate.bin concepts.bin subarray.bin rotation_count.bin group.bin diffleaf.bin
+	pipe.bin rotate.bin concepts.bin subarray.bin rotation_count.bin group.bin diffleaf.bin \
+	ismatch.bin gdb.bin cache.bin maxdiff.bin random.bin
 	#ptrace.bin sigpipe.bin
 
 .PHONY : all

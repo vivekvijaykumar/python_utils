@@ -22,6 +22,22 @@ def tokenize(inp):
 
 
 l3={}
+def tokenize_new(inp):
+    global l,l3
+    length=len(inp)
+    i=0;
+    while (i<length):
+        if(l.has_key(inp[:i+1])):
+            i += 1
+            continue
+
+        #print inp[:i+1], inp[i+1:]
+        if(dictionary.has_key(inp[:i+1])):
+            l.update({inp[:i+1]:1})
+            print "HOLA********************"
+        i += 1
+        tokenize_new(inp[i:])
+
 def tokenize1(inp):
     global l,l3
     for i in range(len(inp)):
@@ -31,8 +47,9 @@ def tokenize1(inp):
         if(l.has_key(inp[:i+1])):
             continue
 
-        if(dictionary.has_key(inp[:i+1]) and tokenize(inp[i:])):
+        if(dictionary.has_key(inp[:i+1]) and tokenize1(inp[i:])):
             l.update({inp[:i+1]:1})
+            print "HoLA"
             return
         l3.update({inp[i:]:1})
 
@@ -69,7 +86,7 @@ def token2(inp):
         if(l2.has_key(key)):
             continue
 
-        if(dictionary.has_key(key) and tokenize(inp[i:])):
+        if(dictionary3.has_key(key) and token2(inp[i:])):
             l = dictionary3[key]
             l2.update({key:l})
             return

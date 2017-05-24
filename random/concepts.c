@@ -29,6 +29,21 @@ struct node *list_return_last(struct node *head)
     return head;
 }
 
+struct node *list_reverse(struct node *head, struct node **HEAD)
+{
+    if((head)->next) {
+        struct node *tmp = list_reverse((head)->next, HEAD);
+        tmp->next = head;
+        (head)->next = NULL;
+        printf("head %p[%d] --> next %p[%d] \n", 
+                tmp, tmp->item, head, head->item);
+    } else {
+        *HEAD = head;
+    }
+    return head;
+}
+
+
 void list_traverse(struct node *head)
 {
     printf("HEAD");
@@ -599,9 +614,13 @@ int main(int argc, char *argv[])
                     list_insert_node(&HEAD, &new_node); 
                 }
                 list_traverse(HEAD);
-                printf("%p[HEAD] --->  %p[NODE]\n", &HEAD, HEAD);
-                LIST_LENGTH = iter;
+                printf("***************************************************************************************************************************************\n");
+                list_reverse(HEAD, &HEAD);
+                list_traverse(HEAD);
+                printf("***************************************************************************************************************************************\n");
+                printf("\n\n");
 
+                LIST_LENGTH = iter;
                 for (iter=0; iter<10; iter++) {
                     random = rand() % 10;    
                     //printf("Remove element %d \n", random);
@@ -609,6 +628,7 @@ int main(int argc, char *argv[])
                     list_traverse(HEAD);
                     printf("\n\n");
                 }
+                
         break;
 
         case 's':
