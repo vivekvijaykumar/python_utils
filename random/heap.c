@@ -18,7 +18,8 @@
  *      in the right position.
  * 
  */
-
+#include <time.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -137,7 +138,14 @@ int remove_top()
     return rc;
 }
 
+int remove_kth(int num) 
+{
+    int rc = -1;
+    for(int i=0; i<num; i++)
+        rc = remove_top();
 
+    return rc;
+}
 
 
 int get_top()
@@ -147,7 +155,6 @@ int get_top()
 
     return -1;
 }
-
 
 int main()
 {
@@ -159,9 +166,15 @@ int main()
         heap_insert(input[i]);
         print_heap(i);
     }
+#if 0 
     printf("--------------------------%d------------------------------- \n", position);
     for(int i=0; i<10; i++) {
         printf("%2d -- ", remove_top());
         print_heap(i);
     }
+#endif
+    time_t t;
+    srand((unsigned) &t);
+    int random = rand()%10;
+    printf("K[%2d]th smallest is %d \n", random, remove_kth(random));
 }
