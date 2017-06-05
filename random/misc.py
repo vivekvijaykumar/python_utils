@@ -80,13 +80,44 @@ z=26
 def encode(inp):
     count = 0
     if(len(inp) == 1):
-        return 1
+        if(int(inp) != 0):
+            return 1
+        else:
+            return -1
     elif(len(inp) == 2):
         if(int(inp) <=26):
             return 2
         else:
             return 1
 
-    count += encode(inp[0:1]) + encode(inp[0:2]) + encode(
+    #count += encode(inp[0:1]) + encode(inp[0:2]) + encode(
+    count += encode(inp[1:]) + encode(inp[2:])
     return count
 
+
+# Python program to print all permutations with
+# duplicates allowed
+
+def toString(List):
+    return ''.join(List)
+
+# Function to print permutations of string
+# This function takes three parameters:
+# 1. String
+# 2. Starting index of the string
+# 3. Ending index of the string.
+string = "ABC"
+n = len(string)
+a = list(string)
+positions = list(string)
+def permute(a, l, r):
+    if l==r:
+        print toString(a)
+    else:
+        for i in xrange(l,r+1):
+            a[l], a[i] = a[i], a[l]
+            permute(a, l+1, r)
+            a[l], a[i] = a[i], a[l] # backtrack
+
+# Driver program to test the above function
+permute(a, 0, n-1)
