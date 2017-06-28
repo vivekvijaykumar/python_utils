@@ -34,4 +34,7 @@ int main()
 		}
 	}
 
+    unsigned int i1=0;
+    printf("%u:%x \n", i1, --i1);
+
 }

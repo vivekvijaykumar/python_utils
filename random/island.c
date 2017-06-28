@@ -35,7 +35,6 @@ unsigned int valid_path(unsigned int row, unsigned int col,
             (visit[row][col] == 0));
 }
 
-
 void navigate_island(unsigned int row, unsigned int col, 
         unsigned int map[][COL], unsigned int visit[][COL])
 {
@@ -74,16 +73,56 @@ unsigned int count_island(unsigned int map[][COL])
     return count;
 }
 
+int findPath(unsigned int row, unsigned int col, 
+        unsigned int map[][COL], unsigned int visit[][COL])
+{
+   //mark as visited row,col
+   //check if row,col == target(row,col) 
+   //   if so stop the recurssion
+   //else
+   //   check row,col+1 and row+1,col for possible paths provided they are not visited
+
+    visit[row][col] = 1;
+
+    if(row == (ROW-1) && col == (COL-1)){
+        return 0;
+    } else {
+        if(valid_path(row+1,col, map, visit)) {
+            if(findPath(row+1,col,map,visit)==0)
+                return 0;
+        }
+        if(valid_path(row,col+1,map,visit))
+            if(findPath(row,col+1,map,visit) == 0)
+                return 0;
+    }
+    return -1;
+}
+
+
+int find_path(unsigned int map[][COL]) 
+{
+    unsigned int visit[ROW][COL] = {{0}};
+
+    if(valid_path(0,0,map, visit)) {
+        if(findPath(0, 0, map, visit) == 0) {
+            printf("Found Path \n");
+            return 0;
+        }
+    }
+    printf("NO Path Found \n");
+    return -1;
+}
+
 
 int main() 
 {
 #if 1
     unsigned int map[ROW][COL] = {
                      { 1, 0, 0, 1, 1 },
-                     { 0, 0, 0, 1, 0 },
+                     { 1, 0, 0, 1, 0 },
                      { 1, 1, 0, 0, 0 },
-                     { 1, 1, 1, 0, 1 },
-                     { 0, 0, 0, 1, 0 },
+                     { 1, 1, 1, 1, 1 },
+                     { 0, 0, 0, 1, 1 },
                   };
 #else
     unsigned int map[ROW][COL] = {
@@ -95,6 +134,7 @@ int main()
 	};
 #endif
     printf("Total Islands:%d \n", count_island(map));
+    find_path(map);
 
     return 0;
 }

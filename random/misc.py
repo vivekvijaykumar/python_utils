@@ -121,3 +121,87 @@ def permute(a, l, r):
 
 # Driver program to test the above function
 permute(a, 0, n-1)
+
+
+
+def countSteps(n):
+    if(n < 0 ):
+        return 0
+    if(n == 0):
+        return 1
+    return countSteps(n-1) + countSteps(n-2) + countSteps(n-3)
+
+def countSteps2(n, l):
+    if(n <= 0 ):
+        return 0
+
+    if(n == 1):
+        return 1
+    elif(n == 2):
+        return 2
+    elif(n == 3):
+        return 3
+
+    l[n] = countSteps2(n-1, l) + countSteps2(n-2, l) + countSteps2(n-3, l)
+    return l[n]
+
+def powr(x,y):
+    if(y==0):
+        return 1
+    temp = powr(x,y/2)
+    if(y%2):
+        return temp * temp * x
+    return temp*temp
+
+def pow(x,y):
+    prod = 1;
+    while(y):
+        if(y and 0x1):
+            print "mutliply1"
+            prod *= x
+        y >>= 1
+        x *= x
+        print "mutliply2"
+    return prod
+
+
+
+def ispermute(str1, str2):
+    dic = {}
+
+    if(len(str1) != len(str2)):
+        return False
+
+    for char in str1:
+        if dic.has_key(char):
+            dic.update({char: dic[char]+1})
+        else:
+            dic.update({char:1})
+
+    for char in str2:
+        if dic.has_key(char):
+            val = dic[char]-1
+            if val == 0:
+                dic.pop(char)
+
+    if len(dic.keys()):
+        return False
+
+    return True
+
+
+def powerset(input_list):
+    l = len(input_list)
+    mask = 1<<l
+    output_list=[]
+    i=0
+    for i in range(mask):
+        j=0
+        temp_list = []
+        while (i):
+            if(i & 0x1):
+                temp_list.append(input_list[j])
+            j += 1
+            i >>= 1
+        output_list.append(temp_list)
+    return output_list
