@@ -254,3 +254,75 @@ def str_divide(num1, num2):
                 out_str = str(qlist[0]) + "." + str(qlist[1:pos]) + "(" + str(qlist[pos:]) + ")"
 
         return out_str
+
+#longest common string
+def lcs(input_str):
+    """
+    go over string and keep track of the char occurences for a given
+    window under consideration. If there is a repeatition in the set
+    then clear the set and start the sliding window fresh from the
+    current location and compare the lengths of previous best maximum
+    window length and modify it accordingly.
+    """
+
+    maxlen = 0
+    currlen = 0
+    window = set()
+    start = 0
+    end = 0
+    substr = ""
+    for i in range(len(input_str)):
+        if (input_str[i] in window):
+            maxlen = max(maxlen, currlen)
+            window.clear()
+            window.add(input_str[i])
+            currlen = 1
+            substr = input_str[start:end+1]
+            start = i
+            end = i
+            print maxlen, substr, window
+        else:
+            window.add(input_str[i])
+            currlen += 1
+            end += 1
+
+    if(maxlen < currlen):
+        maxlen = currlen
+        substr = input_str[start:end+1]
+
+    return substr
+
+#rearrange a number with same digits to get maximum number
+# 62832  -- 86322
+def rearrange(num):
+    """
+    1) first get individual numbers and seprate them
+    2) sort the individual numbers in descending order
+    3) merge them together to get the number you need.
+    """
+    l=[]
+    while(num):
+        l.append(num%10)
+        num /= 10
+
+    l.sort()
+    print l
+
+    num = 0
+    base=1
+    for i in l:
+        num += (i*base)
+        base *= 10
+
+    print num
+
+
+def max_sum(array, i):
+    if (i==0):
+        return array[0]
+    if (i==1):
+        return max(array[0], array[1])
+
+    return max(max_sum(array, i-1), array[i] + max_sum(array, i-2))
+
+
